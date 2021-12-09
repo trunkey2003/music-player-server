@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const apiController = require('../app/controllers/api.controller');
+const ApiUserController = require('../app/controllers/api-user.controller');
 
 /* GET users listing. */
 router.get('/',apiController.show);
-router.get('/us', apiController.getUsSong);
-router.get('/vn', apiController.getVnSong);
+router.get('/admin/us', apiController.getUsSong);
+router.get('/admin/vn', apiController.getVnSong);
+router.get('/user/:slug/songs',ApiUserController.getUserSongs);
 
 module.exports = router;
