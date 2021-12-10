@@ -9,7 +9,7 @@ class ApiUserController{
         .catch(() => {res.json("error user songs")});
     }
 
-    validateUserSongs(req, res, next){
+    validateUser(req, res, next){
         user.find({ username : req.params.slug})
         .then((user) => {res.locals.id = user[0].id ;next()})
         .catch(() =>{res.status(404).send(`user ${req.params.slug} doesn't exist`)});
@@ -23,7 +23,7 @@ class ApiUserController{
     }
 
     getUser(req, res, next){
-        user.find({id : req.params.slug})
+        user.find({id : res.locals.id})
         .then((user) => res.json(user))
     }
 }
