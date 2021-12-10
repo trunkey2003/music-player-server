@@ -16,8 +16,7 @@ class ApiUserController{
     }
 
     PostUserSongs(req,res,next){
-        newSong = Object.assign(req.body, {id : res.locals.id})
-        const song = new userSong(newSong);
+        const song = new userSong(req.body);
         song.save()
         .then(() => res.json("Song added!"))
         .catch(() => res.json("CANNOT POST SONG"));
