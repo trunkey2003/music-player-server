@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const url = "mongodb+srv://viewer:viewer@cluster0.pjbgc.mongodb.net/musicplayer?retryWrites=true&w=majority";
+const url = "mongodb+srv://client:client@cluster0.pjbgc.mongodb.net/musicplayer?retryWrites=true&w=majority";
 
 async function connect() {
   try {

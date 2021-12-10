@@ -9,5 +9,6 @@ router.get('/',apiController.show);
 router.get('/admin/us', apiController.getUsSong);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/user/:slug/songs',ApiUserController.getUserSongs);
+router.get('/user/:slug', ApiUserController.getUser);
 
 module.exports = router;

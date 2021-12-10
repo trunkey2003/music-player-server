@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSong = new Schema({
     id: {type: String},
+    username: {type: String},
     name: {type:String},
     singer: {type:String},
     path: {type:String},
