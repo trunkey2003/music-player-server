@@ -9,7 +9,7 @@ router.get('/',apiController.show);
 router.get('/admin/us', apiController.getUsSong);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/user/:slug/songs', ApiUserController.validateUser ,ApiUserController.getUserSongs);
-// router.post('/user/:slug/songs', ApiUserController.postUserSongs)
+router.post('/user/:slug/songs', ApiUserController.validateUser, ApiUserController.PostUserSongs);
 router.get('/user/:slug', ApiUserController.validateUser, ApiUserController.getUser);
 
 module.exports = router;
