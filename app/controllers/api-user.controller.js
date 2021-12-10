@@ -3,10 +3,9 @@ const user = require('./models/user.model');
 
 
 class ApiUserController{
-    getUserSongs(req,res,next){
-        userSong.find({ id : res.locals.id})
-        .then((songs) => {res.json(songs)})
-        .catch(() => {res.json("error user songs")});
+    getUser(req, res, next){
+        user.find({id : res.locals.id})
+        .then((user) => res.json(user))
     }
 
     validateUser(req, res, next){
@@ -15,16 +14,23 @@ class ApiUserController{
         .catch(() =>{res.status(404).send(`user ${req.params.slug} doesn't exist`)});
     }
 
-    PostUserSongs(req,res,next){
+    getUserSongs(req,res,next){
+        userSong.find({ id : res.locals.id})
+        .then((songs) => {res.json(songs)})
+        .catch(() => {res.json("error user songs")});
+    }
+
+    postUserSongs(req,res,next){
         const song = new userSong(req.body);
         song.save()
         .then(() => res.json("Song added!"))
         .catch(() => res.json("CANNOT POST SONG"));
     }
 
-    getUser(req, res, next){
-        user.find({id : res.locals.id})
-        .then((user) => res.json(user))
+    deleteUserSongs(req,res,next){
+        userSong.deleteOne({_id: req.params.slug})
+        .then(() => res.send(`delete song id : ${req.params.slug} successfully`))
+        .catch(() => res.send(`error delete song id : ${req.params.slug}`));
     }
 }
 
