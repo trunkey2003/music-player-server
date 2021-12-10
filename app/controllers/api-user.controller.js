@@ -9,9 +9,9 @@ class ApiUserController{
     }
 
     validateUser(req, res, next){
-        user.find({ username : req.params.slug})
+        user.find({ username : req.params.username})
         .then((user) => {res.locals.id = user[0].id ;next()})
-        .catch(() =>{res.status(404).send(`user ${req.params.slug} doesn't exist`)});
+        .catch(() =>{res.status(404).send(`user ${req.params.username} doesn't exist`)});
     }
 
     getUserSongs(req,res,next){
@@ -28,9 +28,9 @@ class ApiUserController{
     }
 
     deleteUserSongs(req,res,next){
-        userSong.deleteOne({_id: req.params.slug})
-        .then(() => res.send(`delete song id : ${req.params.slug} successfully`))
-        .catch(() => res.send(`error delete song id : ${req.params.slug}`));
+        userSong.deleteOne({_id: req.params.id, id: res.locals.id})
+        .then(() => res.send(`delete song id : ${req.params.id} successfully`))
+        .catch(() => res.send(`error delete song id : ${req.params.id}`));
     }
 }
 
