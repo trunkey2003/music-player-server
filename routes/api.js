@@ -8,7 +8,8 @@ const ApiUserController = require('../app/controllers/api-user.controller');
 router.get('/',apiController.show);
 router.get('/admin/us', apiController.getUsSong);
 router.get('/admin/vn', apiController.getVnSong);
-router.get('/user/:slug/songs',ApiUserController.getUserSongs);
+router.get('/user/:slug/songs', ApiUserController.validateUserSongs ,ApiUserController.getUserSongs);
+// router.post('/user/:slug/songs', ApiUserController.postUserSongs)
 router.get('/user/:slug', ApiUserController.getUser);
 
 module.exports = router;
