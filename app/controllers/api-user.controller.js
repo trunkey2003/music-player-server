@@ -28,6 +28,7 @@ class ApiUserController{
     }
 
     deleteUserSongs(req,res,next){
+        res.status(200).send(req.params.id);
         if (!req.params.id) {res.locals.songid = req.body.songid; next();}
         userSong.deleteOne({_id: req.params.id, userid: res.locals.id})
         .then(() => res.send(`delete song id : ${req.params.id} successfully`))
