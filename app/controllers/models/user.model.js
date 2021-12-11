@@ -6,7 +6,7 @@ const user = new Schema({
     dateOfBirth: {type:String},
     Phone:{type:String},
     Email:{type:String},
-    id:{type:String},
+    userid:{type:String},
     username:{type:String},
 });
 

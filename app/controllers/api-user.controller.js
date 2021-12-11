@@ -4,7 +4,7 @@ const user = require('./models/user.model');
 
 class ApiUserController{
     getUser(req, res, next){
-        user.find({id : res.locals.id})
+        user.find({userid : res.locals.id})
         .then((user) => res.json(user))
     }
 
@@ -15,7 +15,7 @@ class ApiUserController{
     }
 
     getUserSongs(req,res,next){
-        userSong.find({ id : res.locals.id})
+        userSong.find({ userid : res.locals.id})
         .then((songs) => {res.json(songs)})
         .catch(() => {res.json("error user songs")});
     }
@@ -28,8 +28,8 @@ class ApiUserController{
     }
 
     deleteUserSongs(req,res,next){
-        userSong.deleteOne({_id: req.params.id, id: res.locals.id})
-        .then(() => res.send(`delete song id : ${req.params.id} successfully`))
+        userSong.deleteOne({_id: req.params.id, userid: res.locals.id})
+        .then(() => res.send(`${req.params.id}`))
         .catch(() => res.send(`error delete song id : ${req.params.id}`));
     }
 }
