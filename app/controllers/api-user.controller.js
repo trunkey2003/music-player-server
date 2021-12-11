@@ -15,7 +15,9 @@ class ApiUserController{
     }
 
     validateLogin(req, res,next){
-        res.send(req.body);
+        user.find({username : req.body.username})
+        .then((user) => { (user.password == req.body.password)? res.status(200).send("Login OK !!!") : res.status(403).send("Wrong password")})
+        .catch(() => {res.status(404).send(`User ${req.body.username} doesn't exist please sign up`)});
     }
 
     getUserSongs(req,res,next){
