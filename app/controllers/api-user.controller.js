@@ -14,6 +14,10 @@ class ApiUserController{
         .catch(() =>{res.status(404).send(`user ${req.params.username} doesn't exist`)});
     }
 
+    validateLogin(req, res,next){
+        res.send(req.body);
+    }
+
     getUserSongs(req,res,next){
         userSong.find({ userid : res.locals.id})
         .then((songs) => {res.json(songs)})
