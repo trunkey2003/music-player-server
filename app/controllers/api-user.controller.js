@@ -16,7 +16,7 @@ class ApiUserController{
 
     validateLogin(req, res,next){
         user.find({username : req.body.username})
-        .then((user) => {(user[0].password == req.body.password)? res.status(200).send("Login OK !!!") : res.status(403).send("Wrong password")})
+        .then((user) => {(user[0].password === req.body.password)? res.status(200).send("Login OK !!!") : res.status(403).send("Wrong password")})
         .catch(() => {res.status(404).send(`User ${req.body.username} doesn't exist please sign up`)});
     }
 
