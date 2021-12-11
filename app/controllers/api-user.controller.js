@@ -10,7 +10,7 @@ class ApiUserController{
 
     validateUser(req, res, next){
         user.find({ username : req.params.username})
-        .then((user) => {res.locals.id = user[0].id ;next()})
+        .then((user) => {res.locals.id = user[0].userid ;next()})
         .catch(() =>{res.status(404).send(`user ${req.params.username} doesn't exist`)});
     }
 
