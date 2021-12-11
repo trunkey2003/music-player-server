@@ -28,9 +28,16 @@ class ApiUserController{
     }
 
     deleteUserSongs(req,res,next){
+        if (!req.params.id) {next();}
         userSong.deleteOne({_id: req.params.id, userid: res.locals.id})
-        .then(() => res.send(`${req.params.id}`))
-        .catch(() => res.send(`error delete song id : ${req.params.id}`));
+        .then(() => res.send(`delete song id : ${req.params.id} successfully`))
+        .catch(() => res.send(`cannot delete song id : ${req.params.id}`));
+    }
+
+    deleteUserSongsBySongID(req, res, next){
+        userSong.deleteOne({userid: res.locals.id, songid: req.body.id})
+        .then(() => res.send(`delete song id : ${req.body.id} successfully`))
+        .catch(() => res.send(`error delete song id : ${req.body.id}`));
     }
 }
 
