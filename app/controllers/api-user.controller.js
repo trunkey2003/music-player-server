@@ -1,6 +1,7 @@
 const userSong = require('./models/userSongs.model');
 const user = require('./models/user.model');
 
+let url = "";
 
 class ApiUserController{
     getUser(req, res, next){
@@ -16,8 +17,8 @@ class ApiUserController{
 
     validateLogin(req, res,next){
         user.find({username : req.body.username})
-        .then((user) => {(user[0].password === req.body.password)? res.status(200).send({status : "Login Successful"}) : res.status(403).send({status : "Wrong password"})})
-        .catch(() => {res.status(404).send({status : `User ${req.body.username} doesn't exist please sign up`})});
+        .then((user) => {(user[0].password === req.body.password)? res.status(200).send({username : user[0].username, userid : user[0].userid}) : res.status(403).send({status : "Wrong username or password"})})
+        .catch(() => {res.status(404).send({status : `Wrong username or password`})});
     }
 
     getUserSongs(req,res,next){
