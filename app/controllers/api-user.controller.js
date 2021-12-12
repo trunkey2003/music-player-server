@@ -1,6 +1,6 @@
 const userSong = require('./models/userSongs.model');
 const user = require('./models/user.model');
-import { v4 as uuidv4 } from 'uuid';
+const { v4: uuidv4 } = require('uuid');
 
 class ApiUserController{
     getUser(req, res, next){
@@ -10,7 +10,7 @@ class ApiUserController{
 
     postUser(req, res, next){
         const addnewUser = req.body;
-        // Object.assign(addnewUser, {id : uuidv4()});
+        Object.assign(addnewUser, {id : uuidv4()});
         const newUser = new user(req.body);
         newUser.save()
         .then(() => res.status(200).send(addnewUser))
