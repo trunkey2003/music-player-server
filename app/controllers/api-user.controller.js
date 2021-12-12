@@ -10,7 +10,7 @@ class ApiUserController{
 
     postUser(req, res, next){
         const addnewUser = req.body;
-        Object.assign(addnewUser, {id : uuidv4()});
+        Object.assign(addnewUser, {userid : uuidv4()});
         const newUser = new user(addnewUser);
         newUser.save()
         .then(() => res.status(200).send(addnewUser))
