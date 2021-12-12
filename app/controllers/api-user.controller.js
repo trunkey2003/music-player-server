@@ -1,6 +1,8 @@
 const userSong = require('./models/userSongs.model');
 const user = require('./models/user.model');
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');     
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class ApiUserController{
     getUser(req, res, next){
@@ -8,8 +10,10 @@ class ApiUserController{
         .then((user) => res.json(user))
     }
 
-    postUser(req, res, next){
+    async postUser(req, res, next){
         const addnewUser = req.body;
+        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        addNewUser.password = hashedPassword;
         Object.assign(addnewUser, {userid : uuidv4()});
         const newUser = new user(addnewUser);
         newUser.save()
