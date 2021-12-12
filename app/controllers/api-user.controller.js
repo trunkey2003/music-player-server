@@ -1,12 +1,19 @@
 const userSong = require('./models/userSongs.model');
 const user = require('./models/user.model');
 
-let url = "";
-
 class ApiUserController{
     getUser(req, res, next){
         user.find({userid : res.locals.id})
         .then((user) => res.json(user))
+    }
+
+    postUser(req, res, next){
+        const newUser = req.body;
+        Object.assign(newUser, {id : "06082003"});
+        const user = new user(newUser);
+        user.save()
+        .then(() => res.status(200).send("User added"))
+        .catch(() => res.status(400).send("Err add user"));
     }
 
     validateUser(req, res, next){
@@ -18,7 +25,7 @@ class ApiUserController{
     validateLogin(req, res,next){
         user.find({username : req.body.username})
         .then((user) => {(user[0].password === req.body.password)? res.status(200).send({username : user[0].username, userid : user[0].userid}) : res.status(403).send({status : "Wrong username or password"})})
-        .catch(() => {res.status(404).send({status : `Wrong username or password`})});
+        .catch(() => {res.status(400).send({status : `Wrong username or password`})});
     }
 
     getUserSongs(req,res,next){

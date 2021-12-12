@@ -11,6 +11,7 @@ router.delete('/user/:username/songs/:id', ApiUserController.validateUser, ApiUs
 router.delete('/user/:username/songid/:id/', ApiUserController.validateUser, ApiUserController.deleteUserSongsBySongID);
 router.post('/user/login', ApiUserController.validateLogin);
 router.get('/user/:username', ApiUserController.validateUser, ApiUserController.getUser);
+router.post('/user/signup', ApiUserController.postUser);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/admin/us', apiController.getUsSong);
 router.get('/',apiController.show);
