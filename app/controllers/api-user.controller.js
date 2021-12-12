@@ -34,8 +34,8 @@ class ApiUserController{
 
     validateLogin(req, res,next){
         user.find({username : req.body.username})
-        .then((user) => {if (checkPassword(user[0].password,req.body.password) === true) {res.status(200).send({status: true, userrname : user[0].username, userid : user[0].userid});} else res.status(403).send({ status : false, message : "Wrong username"})})
-        .catch(() => {res.status(400).send({status : false,message : `Wrong password`})});
+        .then((user) => {if (checkPassword(user[0].password,req.body.password) === true) {res.status(200).send({status: true, userrname : user[0].username, userid : user[0].userid});} else res.status(403).send({ status : false, message : "Wrong password"})})
+        .catch(() => {res.status(400).send({status : false,message : `Wrong username`})});
     }
 
     getUserSongs(req,res,next){
