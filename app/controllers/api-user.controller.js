@@ -2,7 +2,13 @@ const userSong = require('./models/userSongs.model');
 const user = require('./models/user.model');
 const { v4: uuidv4 } = require('uuid');     
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const saltRounds = 13;
+
+const checkPassword = async (password, hashedPassword) => {
+    const valid = await bcrypt.compare(password, hashedPassword);
+    console.log(valid);
+    return valid;
+}
 
 class ApiUserController{
     getUser(req, res, next){
@@ -13,8 +19,7 @@ class ApiUserController{
     async postUser(req, res, next){
         const addnewUser = req.body;
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-        addNewUser.password = hashedPassword;
-        Object.assign(addnewUser, {userid : uuidv4()});
+        Object.assign(addnewUser, {userid : uuidv4(), password: hashedPassword});
         const newUser = new user(addnewUser);
         newUser.save()
         .then(() => res.status(200).send(addnewUser))
@@ -29,7 +34,7 @@ class ApiUserController{
 
     validateLogin(req, res,next){
         user.find({username : req.body.username})
-        .then((user) => {(user[0].password === req.body.password)? res.status(200).send({username : user[0].username, userid : user[0].userid}) : res.status(403).send({status : "Wrong username or password"})})
+        .then((user) => {if (checkPassword(user[0].password,req.body.password) === true) {res.status(200).send({userrname : user[0].username, userid : user[0].userid});} else res.status(403).send({status : "Wrong username or password"})})
         .catch(() => {res.status(400).send({status : `Wrong username or password`})});
     }
 
