@@ -7,7 +7,7 @@ const saltRounds = 13;
 class ApiUserController{
     getUser(req, res, next){
         user.find({userid : res.locals.id})
-        .then((user) => res.json(user))
+        .then((user) => res.json(user[0]))
     }
 
     async postUser(req, res, next){
@@ -31,10 +31,10 @@ class ApiUserController{
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
             if (valid) 
-            res.cookie("username", user[0].username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 10*1000), httpOnly: true})
+            res.cookie("username", user[0].username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 3600*1000), httpOnly: true})
             .status(200)
             .send({
-                status: true, message: `Login Successful`,
+                message: `Login Successful`,
                 username: user[0].username, userid: user[0].userid
             });
             res.status(403).send({status: false, message: `Wrong Password`});
@@ -65,6 +65,14 @@ class ApiUserController{
         userSong.deleteOne({songid: req.params.id, userid: res.locals.id})
         .then(() => res.send(`delete song id : ${req.params.id} successfully`))
         .catch(() => res.send(`cannot delete song id : ${req.params.id}`));
+    }
+
+    getCookie(req, res, next){
+        res.cookie("username", "trunkey", {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 60*1000), httpOnly: true}).status(200).send("cookie installed");
+    }
+
+    postCookie(req, res, next){
+        res.cookie("username", req.body.username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 5*1000), httpOnly: true}).status(200).send("cookie installed");
     }
 }
 

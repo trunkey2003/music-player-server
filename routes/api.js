@@ -14,6 +14,8 @@ router.get('/user/:username', ApiUserController.validateUser, ApiUserController.
 router.post('/user/signup', ApiUserController.postUser);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/admin/us', apiController.getUsSong);
+router.get('/cookie', ApiUserController.getCookie);
+router.post('/cookie', ApiUserController.postCookie);
 router.get('/',apiController.show);
 
 

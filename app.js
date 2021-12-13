@@ -8,7 +8,7 @@ const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 var app = express();
-app.use(cors({ credentials: true, origin: "*",}));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://me-musicplayer.netlify.app"],}));
 app.use(cookieParser());
 
 const db = require('./configs/db/index');
