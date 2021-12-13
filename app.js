@@ -9,6 +9,7 @@ const apiRouter = require('./routes/api');
 
 var app = express();
 app.use(cors({ credentials: true, origin: "*",}));
+app.use(cookieParser());
 
 const db = require('./configs/db/index');
 db.connect();

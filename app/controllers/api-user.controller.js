@@ -4,12 +4,6 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const saltRounds = 13;
 
-const checkPassword = async (password, hashedPassword) => {
-    const valid = await bcrypt.compare(password, hashedPassword);
-    console.log(valid);
-    return valid;
-}
-
 class ApiUserController{
     getUser(req, res, next){
         user.find({userid : res.locals.id})
@@ -27,16 +21,22 @@ class ApiUserController{
     }
 
     validateUser(req, res, next){
-        user.find({ username : req.params.username})
+        user.find({ username : req.cookies.username})
         .then((user) => {res.locals.id = user[0].userid ;next()})
-        .catch(() =>{res.status(404).send(`user ${req.params.username} doesn't exist`)});
+        .catch(() =>{res.status(404).send(`user ${req.cookies.username} doesn't exist`)});
     }
 
     validateLogin(req, res, next){
         user.find({username : req.body.username})
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
-            if (valid) res.status(200).send({status: true, message: `Login Successful`, username: user[0].username, userid: user[0].userid});
+            if (valid) 
+            res.cookie("username", user[0].username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 10*1000), httpOnly: true})
+            .status(200)
+            .send({
+                status: true, message: `Login Successful`,
+                username: user[0].username, userid: user[0].userid
+            });
             res.status(403).send({status: false, message: `Wrong Password`});
         })
         .catch(() => {res.status(400).send({status : false,message : `Wrong Username`})});
