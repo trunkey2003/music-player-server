@@ -31,7 +31,7 @@ class ApiUserController{
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
             if (valid) 
-            res.cookie("username", user[0].username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 3600*1000), httpOnly: true})
+            res.cookie("username", user[0].username, {sameSite: 'none', path: '/', expires: new Date(new Date().getTime() + 3600*1000), httpOnly: true, secure:true})
             .status(200)
             .send({
                 message: `Login Successful`,
