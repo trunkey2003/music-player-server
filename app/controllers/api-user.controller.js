@@ -27,7 +27,6 @@ class ApiUserController{
     }
 
     validateLogin(req, res, next){
-        // res.json("Hello")
         user.find({username : req.body.username})
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
@@ -37,7 +36,7 @@ class ApiUserController{
                 maxAge:3600000*5,
                 sameSite:'lax',
                 secure:false,
-             }).status(200).send("Hello")
+             }).status(200).send({username : user[0].username})
             res.status(403).send({status: false, message: `Wrong Password`});
         })
         .catch(() => {res.status(409).send({status : false,message : `Wrong Username`})});

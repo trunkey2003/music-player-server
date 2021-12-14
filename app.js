@@ -9,7 +9,7 @@ const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 var app = express();
-app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://me-musicplayer.netlify.app", "https://trunkeymusicplayer.herokuapp.com"],}));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://me-musicplayer.netlify.app", "https://trunkeymusicplayer.herokuapp.com", "https://home-musicplayer.netlify.app"],}));
 app.use(cookieParser());
 app.use(shouldSendSameSiteNone);
 
