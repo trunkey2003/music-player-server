@@ -17,7 +17,7 @@ class ApiUserController{
         const newUser = new user(addnewUser);
         newUser.save()
         .then(() => res.status(200).send(addnewUser))
-        .catch(() => res.status(400).send("Err add user"));
+        .catch(() => res.status(409).send("Err add user"));
     }
 
     validateUser(req, res, next){
