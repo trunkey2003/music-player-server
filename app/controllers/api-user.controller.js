@@ -37,7 +37,6 @@ class ApiUserController{
                 maxAge:3600000*5,
                 sameSite:'none',
                 secure:true,
-                domain: ".netlify.app",
              }).status(200).send("Hello")
             res.status(403).send({status: false, message: `Wrong Password`});
         })
