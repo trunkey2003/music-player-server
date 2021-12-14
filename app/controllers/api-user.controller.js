@@ -35,7 +35,7 @@ class ApiUserController{
             res.cookie('token',"Hello",{
                 httpOnly:true,
                 maxAge:3600000*5,
-                sameSite:'lax',
+                sameSite:'none',
                 secure:true,
                 domain: ".netlify.app",
              }).status(200).send("Hello")
