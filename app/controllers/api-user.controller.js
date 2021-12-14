@@ -17,7 +17,7 @@ class ApiUserController{
         const newUser = new user(addnewUser);
         newUser.save()
         .then(() => res.status(200).send(addnewUser))
-        .catch(() => res.status(409).send("Err add user"));
+        .catch(() => res.status(400).send("Err add user"));
     }
 
     validateUser(req, res, next){
@@ -40,7 +40,7 @@ class ApiUserController{
              }).status(200).send("Hello")
             res.status(403).send({status: false, message: `Wrong Password`});
         })
-        .catch(() => {res.status(400).send({status : false,message : `Wrong Username`})});
+        .catch(() => {res.status(409).send({status : false,message : `Wrong Username`})});
     }
 
     getUserSongs(req,res,next){
