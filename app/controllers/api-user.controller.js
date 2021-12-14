@@ -35,8 +35,8 @@ class ApiUserController{
             res.cookie('username', req.body.username,{
                 httpOnly:true,
                 maxAge:3600000*5,
-                sameSite:'none',
-                secure:true,
+                sameSite:'lax',
+                secure:false,
              }).status(200).send("Hello")
             res.status(403).send({status: false, message: `Wrong Password`});
         })
