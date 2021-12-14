@@ -27,16 +27,18 @@ class ApiUserController{
     }
 
     validateLogin(req, res, next){
+        // res.json("Hello")
         user.find({username : req.body.username})
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
             if (valid) 
-            res.cookie("username", user[0].username, {sameSite: 'none', secure: true, expires: new Date(new Date().getTime() + 3600*1000), httpOnly: true})
-            .status(200)
-            .send({
-                message: `Login Successful`,
-                username: user[0].username, userid: user[0].userid
-            });
+            res.cookie('token',"Hello",{
+                httpOnly:true,
+                maxAge:3600000*5,
+                sameSite:'lax',
+                secure:true,
+                domain: ".netlify.app",
+             }).status(200).send("Hello")
             res.status(403).send({status: false, message: `Wrong Password`});
         })
         .catch(() => {res.status(400).send({status : false,message : `Wrong Username`})});
