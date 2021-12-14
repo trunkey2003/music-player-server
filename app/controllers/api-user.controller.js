@@ -32,7 +32,7 @@ class ApiUserController{
         .then(async (user) => {
             const valid = await bcrypt.compare(req.body.password, user[0].password); 
             if (valid) 
-            res.cookie('token',"Hello",{
+            res.cookie('username', req.body.username,{
                 httpOnly:true,
                 maxAge:3600000*5,
                 sameSite:'lax',
