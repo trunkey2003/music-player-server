@@ -9,13 +9,14 @@ router.get('/user/:username/songs', ApiUserController.validateUser ,ApiUserContr
 router.post('/user/:username/songs', ApiUserController.validateUser, ApiUserController.postUserSongs);
 router.delete('/user/:username/songs/:id', ApiUserController.validateUser, ApiUserController.deleteUserSongs);
 router.delete('/user/:username/songid/:id/', ApiUserController.validateUser, ApiUserController.deleteUserSongsBySongID);
+router.get('/user/signout', ApiUserController.clearCookie);
 router.post('/user/login', ApiUserController.validateLogin);
 router.get('/user/:username', ApiUserController.validateUser, ApiUserController.getUser);
 router.post('/user/signup', ApiUserController.postUser);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/admin/us', apiController.getUsSong);
-router.get('/cookie', ApiUserController.getCookie);
-router.post('/cookie', ApiUserController.postCookie);
+// router.get('/cookie', ApiUserController.getCookie);
+// router.post('/cookie', ApiUserController.postCookie);
 router.get('/',apiController.show);
 
 

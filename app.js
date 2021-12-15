@@ -1,17 +1,18 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-const { shouldSendSameSiteNone } = require('should-send-same-site-none');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 var app = express();
-app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://me-musicplayer.netlify.app", "https://trunkeymusicplayer.herokuapp.com", "https://home-musicplayer.netlify.app"],}));
+app.use(cors({ credentials: true, origin: [process.env.CLIENT_HOSTNAME_1, process.env.CLIENT_HOSTNAME_2, process.env.CLIENT_HOSTNAME_3, process.env.CLIENT_HOSTNAME_4]}));
 app.use(cookieParser());
-app.use(shouldSendSameSiteNone);
 
 
 const db = require('./configs/db/index');
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res , next) => {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methos', 'GET, POST, PUT, DELETE');

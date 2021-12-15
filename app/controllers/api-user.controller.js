@@ -67,13 +67,18 @@ class ApiUserController{
         .catch(() => res.send(`cannot delete song id : ${req.params.id}`));
     }
 
-    getCookie(req, res, next){
-        res.cookie("username", "trunkey", {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 60*1000), httpOnly: true}).status(200).send("cookie installed");
+    // getCookie(req, res, next){
+    //     res.cookie("username", "trunkey", {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 60*1000), httpOnly: true}).status(200).send("cookie installed");
+    // }
+
+    // postCookie(req, res, next){
+    //     res.cookie("username", req.body.username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 5*1000), httpOnly: true}).status(200).send("cookie installed");
+    // }
+
+    clearCookie(req, res, next){
+        res.status(202).clearCookie('username').send("cookies clears");
     }
 
-    postCookie(req, res, next){
-        res.cookie("username", req.body.username, {sameSite: 'strict', path: '/', expires: new Date(new Date().getTime() + 5*1000), httpOnly: true}).status(200).send("cookie installed");
-    }
 }
 
 module.exports = new ApiUserController;
