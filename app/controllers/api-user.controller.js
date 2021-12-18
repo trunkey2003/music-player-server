@@ -44,7 +44,7 @@ class ApiUserController {
 
     setToken(req,res,next){
         const user = {username : res.locals.username};
-        jwt.sign(user, process.env.TOKEN_SECRET_KEY, (err, token) => {
+        jwt.sign(user, "musicplayer", (err, token) => {
             if (err) res.status(403).send("Cannot Set Token");
             res.locals.token = token;
             next();
@@ -52,7 +52,7 @@ class ApiUserController {
     }
 
     validateTokenCookie(req, res, next){
-        jwt.verify(req.cookies.token, process.env.TOKEN_SECRET_KEY, (err, user) => {
+        jwt.verify(req.cookies.token, "musicplayer", (err, user) => {
             if (err) res.status(403).send("Invalid Token");
             res.locals.username = user.username;
             next();
