@@ -52,6 +52,7 @@ class ApiUserController {
     }
 
     validateTokenCookie(req, res, next){
+        if (!req.cookies.token) res.status(200);
         jwt.verify(req.cookies.token, "musicplayer", (err, user) => {
             if (err) res.status(403).send("Invalid Token");
             res.locals.username = user.username;
@@ -106,7 +107,7 @@ class ApiUserController {
             sameSite: 'none',
             secure: true,
             httpOnly: true,
-            maxAge: 1,
+            maxAge: 0,
         }).status(200).send("Cookie cleared");
     }
 
