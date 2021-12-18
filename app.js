@@ -11,7 +11,7 @@ const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 var app = express();
-app.use(cors({ credentials: true, origin: [process.env.CLIENT_HOSTNAME_1, process.env.CLIENT_HOSTNAME_2, process.env.CLIENT_HOSTNAME_3, process.env.CLIENT_HOSTNAME_4]}));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", process.env.CLIENT_HOSTNAME_2, process.env.CLIENT_HOSTNAME_3, process.env.CLIENT_HOSTNAME_4]}));
 app.use(cookieParser());
 
 
