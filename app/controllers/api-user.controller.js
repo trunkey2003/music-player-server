@@ -102,7 +102,12 @@ class ApiUserController {
     // }
 
     clearCookie(req, res, next) {
-        res.status(202).clearCookie('token').send("cookies clears");
+        res.cookie('token', "none", {
+            sameSite: 'none',
+            secure: true,
+            httpOnly: true,
+            maxAge: 1,
+        }).status(200).send("Cookie cleared");
     }
 
 }
