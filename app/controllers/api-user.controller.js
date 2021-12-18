@@ -61,10 +61,10 @@ class ApiUserController {
 
     setTokenCookie(req, res, next) {
         res.cookie('token', res.locals.token, {
-            httpOnly: true,
-            maxAge: 3600000,
             sameSite: 'none',
             secure: true,
+            httpOnly: true,
+            maxAge: 3600000,
         }).status(200).send({ username: res.locals.username })
     }
 
