@@ -61,7 +61,6 @@ class ApiUserController {
 
     setTokenCookie(req, res, next) {
         res.cookie('token', res.locals.token, {
-            path: '/api/user/login',
             httpOnly: true,
             maxAge: 3600000,
             sameSite: 'none',
