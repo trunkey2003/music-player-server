@@ -3,6 +3,7 @@ const router = express.Router();
 
 const apiController = require('../app/controllers/api.controller');
 const ApiUserController = require('../app/controllers/api-user.controller');
+const Zingmp3Controller = require('../app/controllers/zingmp3.controller');
 
 /* GET users listing. */
 router.get('/user/:username/songs', ApiUserController.validateTokenCookie ,ApiUserController.validateUser ,ApiUserController.getUserSongs);
@@ -16,6 +17,7 @@ router.post('/user/signup/checkusername', ApiUserController.checkUserName);
 router.post('/user/signup', ApiUserController.postUser);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/admin/us', apiController.getUsSong);
+router.post('/zingmp3/songs', Zingmp3Controller.searchSongs);
 // router.get('/cookie', ApiUserController.getCookie);
 // router.post('/cookie', ApiUserController.postCookie);
 router.get('/',apiController.show);
