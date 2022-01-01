@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 class ApiUserController {
     getUser(req, res, next) {
         user.find({ userid: res.locals.id })
-            .then((user) => res.json(user[0]))
+            .then((user) =>{user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
     }
 
     async postUser(req, res, next) {
@@ -63,7 +63,7 @@ class ApiUserController {
     setTokenCookie(req, res, next) {
         res.cookie('token', res.locals.token, {
             sameSite: 'none',
-            secure: true,
+            secure: (process.env.DEV_ENV)? false : true,
             httpOnly: true,
             maxAge: 3600000,
         }).status(200).send({ username: res.locals.username })
