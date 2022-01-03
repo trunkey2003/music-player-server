@@ -6,9 +6,15 @@ const saltRounds = 13;
 var jwt = require('jsonwebtoken');
 
 class ApiUserController {
+    //get 1 user from user or admin
     getUser(req, res, next) {
         user.find({ userid: res.locals.id })
             .then((user) =>{user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
+    }
+
+    getUserNoAuth(req, res, next){
+        user.find({ userid: res.locals.id })
+        .then((user) =>{user[0].dateOfBirth = undefined; user[0].Phone = undefined; user[0].Email = undefined; user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
     }
 
     async postUser(req, res, next) {
