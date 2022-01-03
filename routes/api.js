@@ -15,6 +15,7 @@ router.post('/user/login', ApiUserController.validateLogin, ApiUserController.se
 router.get('/user/:username', ApiUserController.validateTokenCookie, ApiUserController.validateUser, ApiUserController.getUser);
 router.post('/user/signup/checkusername', ApiUserController.checkUserName);
 router.post('/user/signup', ApiUserController.postUser);
+router.put('/user/edit/fullname', ApiUserController.validateTokenCookie, ApiUserController.validateUser, ApiUserController.modifyUserFullName);
 router.get('/admin/vn', apiController.getVnSong);
 router.get('/admin/us', apiController.getUsSong);
 router.post('/zingmp3/songs', Zingmp3Controller.searchSongs);

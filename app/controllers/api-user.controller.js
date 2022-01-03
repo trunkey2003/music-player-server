@@ -17,6 +17,11 @@ class ApiUserController {
         .then((user) =>{user[0].dateOfBirth = undefined; user[0].Phone = undefined; user[0].Email = undefined; user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
     }
 
+    async modifyUserFullName(req, res, next){
+        let result = await user.findOneAndUpdate({username: res.locals.username}, {fullName : req.body.fullName}, { returnOriginal: false});
+        res.send(result);
+    }
+
     async postUser(req, res, next) {
         const addnewUser = req.body;
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
