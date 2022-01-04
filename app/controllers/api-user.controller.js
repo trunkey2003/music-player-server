@@ -76,7 +76,7 @@ class ApiUserController {
             sameSite: 'none',
             secure: (process.env.DEV_ENV)? false : true,
             httpOnly: true,
-            maxAge: 3600000,
+            maxAge: 3600000 * 24 * 7,
         }).status(200).send({ username: res.locals.username })
     }
 
