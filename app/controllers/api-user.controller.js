@@ -9,7 +9,7 @@ class ApiUserController {
     //get 1 user from user or admin
     async getUser(req, res, next) {
         const songCount = await userSong.count({username :"trunkey"});
-        user.findOneAndUpdate({userid: res.locals.id}, {songCount : songCount}, {returnOriginal: false}).then((data) => {data.Phone = undefined; data.Email = undefined; data.userid = undefined; data.password= undefined; res.send(data)});
+        user.findOneAndUpdate({userid: res.locals.id}, {songCount : songCount}, {returnOriginal: false}).then((data) => {data.Phone = undefined; data.Email = undefined; data.password= undefined; res.send(data)});
     }
 
     getUserNoAuth(req, res, next){
