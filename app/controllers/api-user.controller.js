@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 class ApiUserController {
     //get 1 user from user or admin
     async getUser(req, res, next) {
-        const songCount = await userSong.count({username :"trunkey"});
+        const songCount = await userSong.count({userid : res.locals.id});
         user.findOneAndUpdate({userid: res.locals.id}, {songCount : songCount}, {returnOriginal: false}).then((data) => {data.Phone = undefined; data.Email = undefined; data.password= undefined; res.send(data)});
     }
 
@@ -86,7 +86,7 @@ class ApiUserController {
     }
 
     async postUserSongs(req, res, next) {
-        const songCount = await userSong.count({username :"trunkey"});
+        const songCount = await userSong.count({userid: req.body.userid});
         res.send(req.body);
         const song = new userSong(req.body);
         song.save()
@@ -94,13 +94,15 @@ class ApiUserController {
             .catch(() => res.status(403).send("CANNOT POST SONG"));
     }
 
-    deleteUserSongs(req, res, next) {
+    async deleteUserSongs(req, res, next) {
+        const songCount = await userSong.count({userid: req.body.userid});
         userSong.deleteOne({ _id: req.params.id, userid: res.locals.id })
-            .then(() => res.send(`delete song id : ${req.params.id} successfully`))
+            .then(() => {res.send(`delete song id : ${req.params.id} successfully`)})
             .catch(() => res.send(`cannot delete song id : ${req.params.id}`));
     }
 
-    deleteUserSongsBySongID(req, res, next) {
+    async deleteUserSongsBySongID(req, res, next) {
+        const songCount = await userSong.count({userid: req.body.userid});
         userSong.deleteOne({ songid: req.params.id, userid: res.locals.id })
             .then(() => res.send(`delete song id : ${req.params.id} successfully`))
             .catch(() => res.send(`cannot delete song id : ${req.params.id}`));
