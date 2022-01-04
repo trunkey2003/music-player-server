@@ -7,14 +7,14 @@ var jwt = require('jsonwebtoken');
 
 class ApiUserController {
     //get 1 user from user or admin
-    getUser(req, res, next) {
-        user.find({ userid: res.locals.id })
-            .then((user) =>{user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
+    async getUser(req, res, next) {
+        const songCount = await userSong.count({username :"trunkey"});
+        user.findOneAndUpdate({userid: res.locals.id}, {songCount : songCount}, {returnOriginal: false}).then((data) => {data.Phone = undefined; data.Email = undefined; data.userid = undefined; data.password= undefined; res.send(data)});
     }
 
     getUserNoAuth(req, res, next){
         user.find({ userid: res.locals.id })
-        .then((user) =>{user[0].dateOfBirth = undefined; user[0].Phone = undefined; user[0].Email = undefined; user[0].password = undefined; user[0].userid = undefined; res.json(user[0])})
+        .then((user) =>{user[0].dateOfBirth = undefined; user[0].Phone = undefined; user[0].Email = undefined; user[0].password = undefined; res.json(user[0])})
     }
 
     async modifyUserFullName(req, res, next){
@@ -86,10 +86,11 @@ class ApiUserController {
             .catch(() => { res.json("error user songs") });
     }
 
-    postUserSongs(req, res, next) {
+    async postUserSongs(req, res, next) {
+        const songCount = await userSong.count({username :"trunkey"});
         const song = new userSong(req.body);
         song.save()
-            .then(() => res.json("Song added!"))
+            .then(() => user.findOneAndUpdate({userid: req.body.userid}, {songCount : songCount}, {returnOriginal: false}).then(() => res.send("Song added !!")))
             .catch(() => res.json("CANNOT POST SONG"));
     }
 
