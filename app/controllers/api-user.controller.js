@@ -63,7 +63,6 @@ class ApiUserController {
     }
 
     validateTokenCookie(req, res, next){
-        if (!req.cookies.token) res.status(200);
         jwt.verify(req.cookies.token, process.env.TOKEN_SECRET_KEY, (err, user) => {
             if (err) res.status(403).send("Invalid Token");
             res.locals.username = user.username;
@@ -88,9 +87,10 @@ class ApiUserController {
 
     async postUserSongs(req, res, next) {
         const songCount = await userSong.count({username :"trunkey"});
+        res.send(req.body);
         const song = new userSong(req.body);
         song.save()
-            .then(() => user.findOneAndUpdate({userid: req.body.userid}, {songCount : songCount}, {returnOriginal: false}).then(() => res.status(200).send("Song added !!")))
+            .then(() => {user.findOneAndUpdate({userid: req.body.userid}, {songCount : songCount}, {returnOriginal: false}).then(() => res.status(200).send("Song added !!"))})
             .catch(() => res.status(403).send("CANNOT POST SONG"));
     }
 
