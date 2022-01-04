@@ -90,8 +90,8 @@ class ApiUserController {
         const songCount = await userSong.count({username :"trunkey"});
         const song = new userSong(req.body);
         song.save()
-            .then(() => user.findOneAndUpdate({userid: req.body.userid}, {songCount : songCount}, {returnOriginal: false}).then(() => res.send("Song added !!")))
-            .catch(() => res.json("CANNOT POST SONG"));
+            .then(() => user.findOneAndUpdate({userid: req.body.userid}, {songCount : songCount}, {returnOriginal: false}).then(() => res.status(200).send("Song added !!")))
+            .catch(() => res.status(403).send("CANNOT POST SONG"));
     }
 
     deleteUserSongs(req, res, next) {
