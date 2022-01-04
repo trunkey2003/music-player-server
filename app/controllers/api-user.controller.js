@@ -82,7 +82,7 @@ class ApiUserController {
 
     getUserSongs(req, res, next) {
         userSong.find({ userid: res.locals.id })
-            .then((songs) => { res.json(songs) })
+            .then((songs) => { res.json(songs);})
             .catch(() => { res.json("error user songs") });
     }
 
